@@ -14,6 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm' # 启用npm缓存加速构建
       - name: Install CloudBase CLI
         run: npm install -g @cloudbase/cli
 
@@ -24,4 +29,4 @@ jobs:
         run: tcb login --apiKeyId ${{ secrets.TCB_SECRET_ID }} --apiKey ${{ secrets.TCB_SECRET_KEY }}
 
       - name: Deploy to CloudBase Static Hosting
-        run: tcb hosting deploy ./ / -e ${{ secrets.TCB_ENV_ID }}
+        run: tcb hosting deploy ./ /home -e ${{ secrets.TCB_ENV_ID }}
